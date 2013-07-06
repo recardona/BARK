@@ -1,0 +1,17 @@
+# Unity3D .gitignore file
+.DS_Store
+UnityBuild/Library/AssetImportState
+UnityBuild/Library/AssetServerCacheV3
+UnityBuild/Library/FailedAssetImports.txt
+UnityBuild/Library/ScriptAssemblies
+UnityBuild/Library/ScriptMapper
+UnityBuild/Library/assetDatabase3
+UnityBuild/Library/cache
+UnityBuild/Library/expandedItems
+UnityBuild/Library/metadata
+UnityBuild/Library/previews
+UnityBuild/Library/guidmapper
+UnityBuild/Temp/*
+*.pidb
+build
+
