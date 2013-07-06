@@ -66,6 +66,10 @@ consequences:
     -   Body accelerates toward the side of majority leg failure, forcing player
         to compensate with force opposite of the failure.
 
+-   4 leg failure:
+
+    -   Bark!
+
 Technical Direction
 -------------------
 
