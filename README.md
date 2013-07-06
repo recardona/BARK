@@ -56,4 +56,61 @@ consequences:
         body moves quicker toward the front, forcing the player to compensate
         with the opposite legs of failure.
 
+-   3 leg failure:
 
+    -   Leg that did succeed is now unavailable (it's numb), such that it
+        automatically fails for next iteration of key sequence.
+
+    -   Body moves to the side of majority leg failure.
+
+    -   Body accelerates toward the side of majority leg failure, forcing player
+        to compensate with force opposite of the failure.
+
+Technical Direction
+-------------------
+
+### Art Assets Needed
+
+-   Room
+
+-   Chair
+
+-   Lamp
+
+-   Bookcase
+
+-   Dog
+
+    -   Left/Right
+
+        -   Hind/Front Legs\*
+
+    -   Body
+
+\* All these are individual assets that must be modeled and rigged.
+
+### Sound Assets Needed
+
+-   Panting
+
+-   Bark
+
+-   Vase-breaking
+
+-   Thud
+
+-   Chair Grind (against floor)
+
+-   Background Music
+
+### Code Assets Needed
+
+-   Title Screen
+
+-   Dog-behavior Script
+
+-   Trigger for Game End
+
+-   Object on Collision Sound Prompt
+
+-   Key-input
