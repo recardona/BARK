@@ -5,14 +5,13 @@ using System.Collections;
 [RequireComponent (typeof (BoxCollider))]
 [RequireComponent (typeof (AudioSource))]
 
-public class ChairBehavior : MonoBehaviour 
+public class ChairBehavior : ObstacleBehavior 
 {
 	public AudioClip dragLoopSound;
 	public AudioClip moveStopSound;
-	public int decibelLevel = 1;
 	
 	void Start() {
-	
+		base.decibelLevel = 1;
 	}
 	
 	void Update() {
@@ -34,9 +33,4 @@ public class ChairBehavior : MonoBehaviour
 		audio.clip = moveStopSound;
 		audio.Play();
 	}
-	
-	public int GetDecibelLevel() {
-		return this.decibelLevel;
-	}
-	
 }

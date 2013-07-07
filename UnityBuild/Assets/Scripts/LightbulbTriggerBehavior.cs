@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
 
-public class LightbulbTriggerBehavior : MonoBehaviour {
+public class LightbulbTriggerBehavior : ObstacleBehavior {
 	
 	private Transform lightbulbLight;
 	
 	// Use this for initialization
 	void Start () {
+		base.decibelLevel = 10;
 		lightbulbLight = transform.parent.Find("Lightbulb Light");
 		
 		if(!lightbulbLight) {
@@ -18,6 +19,8 @@ public class LightbulbTriggerBehavior : MonoBehaviour {
 		
 		if(other.gameObject.tag == "Level") {
 			lightbulbLight.SendMessage("BreakLightbulb");
+			IncreaseSoundLevelScript soundLevelScript = GameObject.Find("Dog").GetComponent<IncreaseSoundLevelScript>();
+			soundLevelScript.SendMessage("UpdateDecibelLevel", this.decibelLevel);
 		}
 	}
 }

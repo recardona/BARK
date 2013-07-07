@@ -22,13 +22,20 @@ public class BARKCharacterController : MonoBehaviour
 	private string[] buttons;
 	private int currentIndex = 0; //moves along the array as buttons are pressed
 	private float allowedTimeBetweenButtons = 1.0f; //tweak as needed
-	private float timeLastButtonPressed;	
+	private float timeLastButtonPressed;
+	
+	// Sound Level Script
+	private IncreaseSoundLevelScript soundLevelScript;
+	//IncreaseSoundLevelScript soundLevelScript = gameObject.GetComponent<IncreaseSoundLevelScript>();
+	
 	
 	void Awake() {
 		rigidbody.freezeRotation = true;
 		rigidbody.useGravity = false;
 		//buttons = new string[]{"LEFT_BACK_LEG", "LEFT_FRONT_LEG", "RIGHT_BACK_LEG", "RIGHT_FRONT_LEG"};
 		buttons = new string[]{"LEFT_BACK_LEG"};
+		
+		soundLevelScript = gameObject.GetComponent<IncreaseSoundLevelScript>();
 	}
 		
 	void FixedUpdate() {
@@ -65,13 +72,11 @@ public class BARKCharacterController : MonoBehaviour
 	}
 	
 	void OnCollisionEnter(Collision other) {
-		if(other.gameObject.tag != "Level") {
-			Debug.Log("Dog collided");
-
-			IncreaseSoundLevelScript soundLevelScript = gameObject.GetComponent<IncreaseSoundLevelScript>();
-			//soundLevelScript.SendMessage("")
-			Debug.Log(soundLevelScript);
-			soundLevelScript.SendMessage("UpdateDecibelLevel", other.gameObject.GetComponent<ChairBehavior>().GetDecibelLevel());			
+		
+		// If we're encountering an obstacle
+		if(other.gameObject.tag == "Obstacle") {
+			int decibleLevelOfCollidedObject = other.gameObject.GetComponent<ObstacleBehavior>().GetDecibelLevel();
+			soundLevelScript.SendMessage("UpdateDecibelLevel", decibleLevelOfCollidedObject);			
 		}
 	}
 	
