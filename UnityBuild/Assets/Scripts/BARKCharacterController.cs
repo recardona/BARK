@@ -12,7 +12,7 @@ public class BARKCharacterController : MonoBehaviour
 {
 	public float moveSpeed = 100.0f;
 	public float gravity   = 9.8f;
-	public float maxVelocityChange = 1000.0f;
+	public float maxVelocityChange = 100.0f;
 	public float jumpHeight = 2.0f;
 	public bool  canJump = true;
 	
