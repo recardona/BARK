@@ -4,6 +4,8 @@ using System.Collections;
 public class IncreaseSoundLevelScript : MonoBehaviour {
 	
 	public int decibelLevelTotal = 0;
+	public int decibelLevelMax = 1;
+	private bool decibelLimitReached = false;
 	
 	// Use this for initialization
 	void Start () {
@@ -17,9 +19,17 @@ public class IncreaseSoundLevelScript : MonoBehaviour {
 	
 	void UpdateDecibelLevel(int decibels) {
 		this.decibelLevelTotal += decibels;
+		if(this.decibelLevelTotal >= this.decibelLevelMax) {
+			this.decibelLimitReached = true;
+		}
 	}
 	
 	void OnGUI () {
-		GUI.Label (new Rect (Screen.width-100, 300, 100, 50), decibelLevelTotal + "dBs");
+		if(!this.decibelLimitReached) {
+			GUI.Label (new Rect (Screen.width-100, 300, 100, 50), decibelLevelTotal + "dBs");
+		}
+		else {
+			GUI.Label (new Rect (Screen.width-100, 300, 100, 50), "GAME OVER");
+		}
 	}
 }
