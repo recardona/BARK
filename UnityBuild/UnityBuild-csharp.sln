@@ -1,8 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{95950FE3-7130-A02C-513D-5E33B8B37FBD}") = "UnityBuild", "Assembly-CSharp-firstpass-vs.csproj", "{46426FF7-A49F-6604-1031-D03AEF7A1F05}"
-EndProject
 Project("{95950FE3-7130-A02C-513D-5E33B8B37FBD}") = "UnityBuild", "Assembly-CSharp-vs.csproj", "{0061A329-08AA-CD24-95EB-C64E1C5707CB}"
 EndProject
 Global
@@ -11,10 +9,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{46426FF7-A49F-6604-1031-D03AEF7A1F05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{46426FF7-A49F-6604-1031-D03AEF7A1F05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{46426FF7-A49F-6604-1031-D03AEF7A1F05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{46426FF7-A49F-6604-1031-D03AEF7A1F05}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0061A329-08AA-CD24-95EB-C64E1C5707CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0061A329-08AA-CD24-95EB-C64E1C5707CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0061A329-08AA-CD24-95EB-C64E1C5707CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -23,10 +17,9 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-<<<<<<< HEAD
-											GlobalSection(MonoDevelopProperties) = preSolution
+																GlobalSection(MonoDevelopProperties) = preSolution
 =======
-													GlobalSection(MonoDevelopProperties) = preSolution
+												GlobalSection(MonoDevelopProperties) = preSolution
 >>>>>>> b15d5f9f23c9b2a5b54cbad6069f5f755b298724
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0

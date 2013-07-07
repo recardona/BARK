@@ -10,30 +10,42 @@ using System.Collections;
  */
 public class BARKCharacterController : MonoBehaviour 
 {
-	public float moveSpeed = 3.0f;
+	public float moveSpeed = 100.0f;
 	public float gravity   = 9.8f;
-	public float maxVelocityChange = 10.0f;
+	public float maxVelocityChange = 1000.0f;
 	public float jumpHeight = 2.0f;
 	public bool  canJump = true;
 	
 	private bool grounded = false;
 	
+	// Ref: http://wiki.unity3d.com/index.php/KeyCombo
+	private string[] buttons;
+	private int currentIndex = 0; //moves along the array as buttons are pressed
+	private float allowedTimeBetweenButtons = 0.3f; //tweak as needed
+	private float timeLastButtonPressed;
+	
+	
 	void Awake() {
 		rigidbody.freezeRotation = true;
 		rigidbody.useGravity = false;
+		buttons = new string[]{"LEFT_BACK_LEG", "LEFT_FRONT_LEG", "RIGHT_BACK_LEG", "RIGHT_FRONT_LEG"};
 	}
 		
 	void FixedUpdate() {
 		
 		if(grounded) {
-			// Calculate how fast we should be moving.
-			float xInput = Input.GetAxis("Horizontal");
-			float zInput = Input.GetAxis("Vertical");
-			Vector3 targetVelocity = new Vector3(xInput, 0.0f, zInput);
-			targetVelocity.Normalize();
 			
+			// Calculate how fast we should be moving.
+			Vector3 targetVelocity = Vector3.zero;
+			
+			if(InputIsKeySequence())
+			{
+				targetVelocity = Vector3.forward*moveSpeed;
+			}
+
 			targetVelocity = transform.TransformDirection(targetVelocity);
-			targetVelocity *= moveSpeed;
+			Debug.Log(""+targetVelocity);
+			//targetVelocity *= moveSpeed;
 			
 			// Apply a force that attempts to reach our target velocity.
 			Vector3 currentVelocity = rigidbody.velocity;
@@ -54,6 +66,37 @@ public class BARKCharacterController : MonoBehaviour
 	
 	void OnCollisionStay() {
 		grounded = true;
+	}
+	
+	
+	//usage: call this once a frame. when the combo has been completed, it will return true
+	bool InputIsKeySequence()
+	{
+		if (Time.time > timeLastButtonPressed + allowedTimeBetweenButtons) currentIndex=0;
+		if (currentIndex < buttons.Length)
+		{
+			if ((buttons[currentIndex] == "down" && Input.GetAxisRaw("Vertical") == -1) ||
+			(buttons[currentIndex] == "up" && Input.GetAxisRaw("Vertical") == 1) ||
+			(buttons[currentIndex] == "left" && Input.GetAxisRaw("Vertical") == -1) ||
+			(buttons[currentIndex] == "right" && Input.GetAxisRaw("Horizontal") == 1) ||
+			(buttons[currentIndex] != "down" &&  buttons[currentIndex] != "up" &&  buttons[currentIndex] != "left" &&  buttons[currentIndex] != "right" && Input.GetButtonDown(buttons[currentIndex])) )
+			{
+				timeLastButtonPressed = Time.time;
+				currentIndex++;
+			}
+ 
+			if (currentIndex >= buttons.Length)
+			{
+				currentIndex = 0;
+				return true;
+			}
+			
+			else
+			{
+				return false;	
+			}
+		}
+		return false;
 	}
 	
 }

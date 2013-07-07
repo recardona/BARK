@@ -1,17 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-<<<<<<< HEAD
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/BARKController.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/FollowCamera.cs">
     <Files>
-      <File FileName="Assets/Standard Assets/Character Controllers/Sources/Scripts/CharacterMotor.js" Line="1" Column="1" />
-      <File FileName="Assets/Standard Assets/Character Controllers/Sources/Scripts/PlatformInputController.js" Line="1" Column="1" />
-      <File FileName="Assets/Scripts/BARKController.js" Line="391" Column="3" />
-      <File FileName="Assets/Standard Assets/Character Controllers/Sources/Scripts/ThirdPersonCamera.js" Line="91" Column="36" />
+      <File FileName="Assets/Scripts/ChairBehavior.cs" Line="11" Column="12" />
+      <File FileName="Assets/Scripts/BARKCharacterController.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/BARKControlsScript.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/FollowCamera.cs" Line="9" Column="25" />
     </Files>
   </MonoDevelop.Ide.Workbench>
-=======
-  <MonoDevelop.Ide.Workbench />
->>>>>>> b15d5f9f23c9b2a5b54cbad6069f5f755b298724
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
