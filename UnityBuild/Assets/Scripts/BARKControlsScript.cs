@@ -79,10 +79,11 @@ public class BARKControlsScript : MonoBehaviour {
 	void UpdateBARKInput() {
 		
 		// get input
-		//Debug.Log("Input Queue Count: " + this.inputQueue.Count);
+		//Debug.Log("Input Queue Count: " + this.inputQueue.Count);		
 		if(this.inputQueue.Count < 4) {
 			//Debug.Log("Getting input");
-			if(GetLeftBackLegInput()) {	
+			if(GetLeftBackLegInput()) {
+				//Debug.Log("LEFT BACK");
 				// don't add duplicate
 				if(this.inputQueue.Count > 0) {
 					if(!this.inputQueue.Peek().Equals(LEFT_LEG_BACK_KEYCODE)) {
@@ -96,6 +97,7 @@ public class BARKControlsScript : MonoBehaviour {
 				}
 			}
 			else if(GetLeftFrontLegInput()) {
+				//Debug.Log("LEFT FRONT");
 				if(this.inputQueue.Count > 0) {
 					if(!this.inputQueue.Peek().Equals(LEFT_LEG_FRONT_KEYCODE)) {
 						this.inputQueue.Enqueue(LEFT_LEG_FRONT_KEYCODE);
@@ -108,6 +110,7 @@ public class BARKControlsScript : MonoBehaviour {
 				}
 			}
 			else if(GetRightBackLegInput()) {			
+				//Debug.Log("RIGHT BACK");
 				if(this.inputQueue.Count > 0) {
 					if(!this.inputQueue.Peek().Equals(RIGHT_LEG_BACK_KEYCODE)) {
 						this.inputQueue.Enqueue(RIGHT_LEG_BACK_KEYCODE);
@@ -119,7 +122,8 @@ public class BARKControlsScript : MonoBehaviour {
 					Debug.Log("Adding B");
 				}
 			}
-			else if(GetRightFrontLegInput()) {			
+			else if(GetRightFrontLegInput()) {	
+				//Debug.Log("RIGHT FRONT");
 				if(this.inputQueue.Count > 0) {
 					if(!this.inputQueue.Peek().Equals(RIGHT_LEG_FRONT_KEYCODE)) {
 						this.inputQueue.Enqueue(RIGHT_LEG_FRONT_KEYCODE);
@@ -133,13 +137,13 @@ public class BARKControlsScript : MonoBehaviour {
 			}
 			
 		}
-		else { // process input
+		else if(this.inputQueue.Count == 4) { // process input
 			Debug.Log("PROCESSING INPUT");
 			// left back+front, right back+front
-			if(this.inputQueue.Dequeue().Equals(RIGHT_LEG_FRONT_KEYCODE) && 
-			this.inputQueue.Dequeue().Equals(RIGHT_LEG_BACK_KEYCODE) &&
+			if(this.inputQueue.Dequeue().Equals(LEFT_LEG_BACK_KEYCODE) &&
 			this.inputQueue.Dequeue().Equals(LEFT_LEG_FRONT_KEYCODE) &&
-			this.inputQueue.Dequeue().Equals(LEFT_LEG_BACK_KEYCODE)) {
+			this.inputQueue.Dequeue().Equals(RIGHT_LEG_BACK_KEYCODE) &&
+			this.inputQueue.Dequeue().Equals(RIGHT_LEG_FRONT_KEYCODE)) {
 				// success!
 				Debug.Log("MOVING");
 				gameObject.transform.Translate(0, 50.0f, 0);
