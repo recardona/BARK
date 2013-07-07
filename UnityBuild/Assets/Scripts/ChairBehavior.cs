@@ -9,6 +9,7 @@ public class ChairBehavior : MonoBehaviour
 {
 	public AudioClip dragLoopSound;
 	public AudioClip moveStopSound;
+	public int decibelLevel = 1;
 	
 	void Start() {
 	
@@ -32,6 +33,10 @@ public class ChairBehavior : MonoBehaviour
 		audio.loop = false;
 		audio.clip = moveStopSound;
 		audio.Play();
+	}
+	
+	public int GetDecibelLevel() {
+		return this.decibelLevel;
 	}
 	
 }
