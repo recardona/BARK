@@ -14,7 +14,11 @@ public class IncreaseSoundLevelScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+		if(decibelLimitReached) {
+			if(Input.GetKey("e")) {
+				Application.LoadLevel(0);
+			}
+		}
 	}
 	
 	void UpdateDecibelLevel(int decibels) {
