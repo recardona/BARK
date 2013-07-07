@@ -17,7 +17,7 @@ public class BARKControlsScript : MonoBehaviour {
 	// Ref: http://wiki.unity3d.com/index.php/KeyCombo
 	string[] buttons;
 	private int currentIndex = 0; //moves along the array as buttons are pressed
-	float allowedTimeBetweenButtons = 0.3f; //tweak as needed
+	float allowedTimeBetweenButtons = 2.0f; //tweak as needed
 	private float timeLastButtonPressed;
 	
 	enum MoveState {
@@ -30,10 +30,7 @@ public class BARKControlsScript : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		this.inputQueue = new Queue(4);
-		Debug.Log("-----gameObject------");
-		Debug.Log(gameObject);
-		
+		//this.inputQueue = new Queue(4);		
 		KeyCombo(null);
 	}
 	
@@ -47,9 +44,6 @@ public class BARKControlsScript : MonoBehaviour {
 		Check();
 	}
 	
-	
-	
- 
 	void KeyCombo(string[] b)
 	{
 		buttons = new string[]{"LEFT_BACK_LEG", "LEFT_FRONT_LEG", "RIGHT_BACK_LEG", "RIGHT_FRONT_LEG"};
@@ -76,6 +70,7 @@ public class BARKControlsScript : MonoBehaviour {
 				currentIndex = 0;
 				Debug.Log("TRUE");
 				gameObject.transform.Translate(Vector3.forward, Space.World);
+				//RotateCharacter(5.0f);
 				return true;
 			}
 			else return false;
@@ -83,110 +78,10 @@ public class BARKControlsScript : MonoBehaviour {
 		return false;
 	}
 	
-	void UpdateBARKInput() {
-		
-		// get input
-		//Debug.Log("Input Queue Count: " + this.inputQueue.Count);		
-		if(this.inputQueue.Count < 4) {
-			//Debug.Log("Getting input");
-			if(GetLeftBackLegInput()) {
-				//Debug.Log("LEFT BACK");
-				// don't add duplicate
-				if(this.inputQueue.Count > 0) {
-					if(!this.inputQueue.Peek().Equals(LEFT_LEG_BACK_KEYCODE)) {
-						this.inputQueue.Enqueue(LEFT_LEG_BACK_KEYCODE);
-						Debug.Log("Adding A");			
-					}
-				}
-				else if(this.inputQueue.Count == 0) {
-					this.inputQueue.Enqueue(LEFT_LEG_BACK_KEYCODE);
-					Debug.Log("Adding A");
-				}
-			}
-			else if(GetLeftFrontLegInput()) {
-				//Debug.Log("LEFT FRONT");
-				if(this.inputQueue.Count > 0) {
-					if(!this.inputQueue.Peek().Equals(LEFT_LEG_FRONT_KEYCODE)) {
-						this.inputQueue.Enqueue(LEFT_LEG_FRONT_KEYCODE);
-						Debug.Log("Adding R");
-					}
-				}
-				else if(this.inputQueue.Count == 0) {
-					this.inputQueue.Enqueue(LEFT_LEG_FRONT_KEYCODE);
-					Debug.Log("Adding R");
-				}
-			}
-			else if(GetRightBackLegInput()) {			
-				//Debug.Log("RIGHT BACK");
-				if(this.inputQueue.Count > 0) {
-					if(!this.inputQueue.Peek().Equals(RIGHT_LEG_BACK_KEYCODE)) {
-						this.inputQueue.Enqueue(RIGHT_LEG_BACK_KEYCODE);
-						Debug.Log("Adding B");
-					}
-				}
-				else if(this.inputQueue.Count == 0) {
-					this.inputQueue.Enqueue(RIGHT_LEG_BACK_KEYCODE);
-					Debug.Log("Adding B");
-				}
-			}
-			else if(GetRightFrontLegInput()) {	
-				//Debug.Log("RIGHT FRONT");
-				if(this.inputQueue.Count > 0) {
-					if(!this.inputQueue.Peek().Equals(RIGHT_LEG_FRONT_KEYCODE)) {
-						this.inputQueue.Enqueue(RIGHT_LEG_FRONT_KEYCODE);
-						Debug.Log("Adding K");
-					}
-				}
-				else if(this.inputQueue.Count == 0) {
-					this.inputQueue.Enqueue(RIGHT_LEG_FRONT_KEYCODE);
-					Debug.Log("Adding K");
-				}
-			}
-			
-		}
-		else if(this.inputQueue.Count == 4) { // process input
-			Debug.Log("PROCESSING INPUT");
-			// left back+front, right back+front
-			KeyCode kc1, kc2, kc3, kc4;
-			kc1 = (KeyCode)this.inputQueue.Dequeue();
-			kc2 = (KeyCode)this.inputQueue.Dequeue();
-			kc3 = (KeyCode)this.inputQueue.Dequeue();
-			kc4 = (KeyCode)this.inputQueue.Dequeue();
-			
-			if(kc1 == LEFT_LEG_BACK_KEYCODE &&
-			kc2 == LEFT_LEG_FRONT_KEYCODE &&
-			kc3 == RIGHT_LEG_BACK_KEYCODE &&
-			kc4 == RIGHT_LEG_FRONT_KEYCODE) {
-				// success!
-				Debug.Log("MOVING");
-				gameObject.transform.Translate(0, 50.0f, 0);
-				this.inputQueue.Clear();
-				return;
-			}
-			// right back+front, left back+front
-			else if(kc3 == LEFT_LEG_FRONT_KEYCODE &&
-			kc4 == LEFT_LEG_BACK_KEYCODE &&
-			kc1 == RIGHT_LEG_FRONT_KEYCODE && 
-			kc2 == RIGHT_LEG_BACK_KEYCODE) {
-				// success!	
-				Debug.Log("MOVING");
-				gameObject.transform.Translate(0, 50.0f, 0);
-				this.inputQueue.Clear();
-				return;
-			}
-			
-			//this.inputQueue.Clear();
-		}
+	void RotateCharacter(float rotation) {
+		gameObject.transform.Rotate(gameObject.transform.forward, rotation);
 	}
-	
-	void UpdateMovement() {
-		// translate dog based on state
-		if(this.state.Equals(MoveState.LeftSideSuccess)) {
-			Debug.Log("LEFT SUCCESS");
-			this.state = MoveState.Idle;
-		}
-	}
-	
+			
 	void PushInputKey(KeyCode key) {
 		this.inputQueue.Enqueue(key);
 	}
@@ -205,40 +100,5 @@ public class BARKControlsScript : MonoBehaviour {
 	
 	bool GetRightFrontLegInput() {
 		return Input.GetKey("k");
-	}
-	
-	bool GetCorrectLeftLegInput() {
-		return this.state.Equals(MoveState.LeftSideSuccess);
-		
-//		if(GetLeftFrontLegInput()) {
-//			if(this.inputQueue.Peek().Equals(LEFT_LEG_BACK_KEYCODE)) {
-//				this.inputQueue.Enqueue(LEFT_LEG_FRONT_KEYCODE);
-//				this.state = MoveState.LeftSideSuccess;
-//				Debug.Log("LEFT LEGS OK");
-//				return true;
-//			}
-//		}
-//		
-//		return false;
-	}
-	
-	bool GetCorrectRightLegInput() {
-		return this.state.Equals(MoveState.RightSideSuccess);
-		
-//		if(GetRightFrontLegInput()) {
-//			if(this.inputQueue.Peek().Equals(RIGHT_LEG_BACK_KEYCODE)) {
-//				this.inputQueue.Enqueue(RIGHT_LEG_FRONT_KEYCODE);
-//				this.state = MoveState.RightSideSuccess;
-//				Debug.Log("RIGHT LEGS OK");
-//				return true;
-//			}
-//		}
-//		
-//		return false;
-	}
-	
-	bool GetCorrectInputSequence() {
-		return this.state.Equals(MoveState.BothSideSuccess);
-	}
-	
+	}	
 }
