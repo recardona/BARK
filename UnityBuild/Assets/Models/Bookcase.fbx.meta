@@ -1,22 +1,26 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: f61ec637ecfc84637a4854b22b22d782
-ModelImporter:
-  serializedVersion: 15
-  fileIDToRecycleName: {}
-=======
-guid: aec0063e47e9b4d9aa09b69b0ec1224b
+guid: 34c6505a998de4b1bb0f145627303b1c
 ModelImporter:
   serializedVersion: 15
   fileIDToRecycleName:
     100000: //RootNode
+    100002: pCube1
+    100004: pCube2
+    100006: pCube3
     400000: //RootNode
-    2300000: //RootNode
-    3300000: //RootNode
-    4300000: Plane
-    7400000: Default Take
+    400002: pCube1
+    400004: pCube2
+    400006: pCube3
+    2300000: pCube1
+    2300002: pCube2
+    2300004: pCube3
+    3300000: pCube1
+    3300002: pCube2
+    3300004: pCube3
+    4300000: pCube1
+    4300002: pCube2
+    4300004: pCube3
     9500000: //RootNode
->>>>>>> b15d5f9f23c9b2a5b54cbad6069f5f755b298724
   materials:
     importMaterials: 1
     materialName: 0
@@ -35,11 +39,7 @@ ModelImporter:
     lODScreenPercentages: []
     globalScale: 1
     meshCompression: 0
-<<<<<<< HEAD
-    addColliders: 1
-=======
     addColliders: 0
->>>>>>> b15d5f9f23c9b2a5b54cbad6069f5f755b298724
     importBlendShapes: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
