@@ -33,7 +33,7 @@ public class IncreaseSoundLevelScript : MonoBehaviour {
 			GUI.Label (new Rect (Screen.width-100, 300, 100, 50), decibelLevelTotal + "dBs");
 		}
 		else {
-			GUI.Label (new Rect (Screen.width-100, 300, 100, 50), "GAME OVER");
+			GUI.Label (new Rect (Screen.width-100, 300, 100, 50), "GAME OVER ... Press E to Restart");
 		}
 	}
 }
