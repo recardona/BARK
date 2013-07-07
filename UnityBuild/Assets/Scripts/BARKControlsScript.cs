@@ -33,13 +33,18 @@ public class BARKControlsScript : MonoBehaviour {
 		this.inputQueue = new Queue(4);
 		Debug.Log("-----gameObject------");
 		Debug.Log(gameObject);
+		
+		KeyCombo(null);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
-		UpdateBARKInput();
-		UpdateMovement();
+		//UpdateBARKInput();
+		//UpdateMovement();
+		
+		
+		Check();
 	}
 	
 	
@@ -47,7 +52,7 @@ public class BARKControlsScript : MonoBehaviour {
  
 	void KeyCombo(string[] b)
 	{
-		buttons = b;
+		buttons = new string[]{"LEFT_BACK_LEG", "LEFT_FRONT_LEG", "RIGHT_BACK_LEG", "RIGHT_FRONT_LEG"};
 	}
  
 	//usage: call this once a frame. when the combo has been completed, it will return true
@@ -69,6 +74,8 @@ public class BARKControlsScript : MonoBehaviour {
 			if (currentIndex >= buttons.Length)
 			{
 				currentIndex = 0;
+				Debug.Log("TRUE");
+				gameObject.transform.Translate(Vector3.forward, Space.World);
 				return true;
 			}
 			else return false;
@@ -140,10 +147,16 @@ public class BARKControlsScript : MonoBehaviour {
 		else if(this.inputQueue.Count == 4) { // process input
 			Debug.Log("PROCESSING INPUT");
 			// left back+front, right back+front
-			if(this.inputQueue.Dequeue().Equals(LEFT_LEG_BACK_KEYCODE) &&
-			this.inputQueue.Dequeue().Equals(LEFT_LEG_FRONT_KEYCODE) &&
-			this.inputQueue.Dequeue().Equals(RIGHT_LEG_BACK_KEYCODE) &&
-			this.inputQueue.Dequeue().Equals(RIGHT_LEG_FRONT_KEYCODE)) {
+			KeyCode kc1, kc2, kc3, kc4;
+			kc1 = (KeyCode)this.inputQueue.Dequeue();
+			kc2 = (KeyCode)this.inputQueue.Dequeue();
+			kc3 = (KeyCode)this.inputQueue.Dequeue();
+			kc4 = (KeyCode)this.inputQueue.Dequeue();
+			
+			if(kc1 == LEFT_LEG_BACK_KEYCODE &&
+			kc2 == LEFT_LEG_FRONT_KEYCODE &&
+			kc3 == RIGHT_LEG_BACK_KEYCODE &&
+			kc4 == RIGHT_LEG_FRONT_KEYCODE) {
 				// success!
 				Debug.Log("MOVING");
 				gameObject.transform.Translate(0, 50.0f, 0);
@@ -151,10 +164,10 @@ public class BARKControlsScript : MonoBehaviour {
 				return;
 			}
 			// right back+front, left back+front
-			else if(this.inputQueue.Dequeue().Equals(LEFT_LEG_FRONT_KEYCODE) &&
-			this.inputQueue.Dequeue().Equals(LEFT_LEG_BACK_KEYCODE) &&
-			this.inputQueue.Dequeue().Equals(RIGHT_LEG_FRONT_KEYCODE) && 
-			this.inputQueue.Dequeue().Equals(RIGHT_LEG_BACK_KEYCODE)) {
+			else if(kc3 == LEFT_LEG_FRONT_KEYCODE &&
+			kc4 == LEFT_LEG_BACK_KEYCODE &&
+			kc1 == RIGHT_LEG_FRONT_KEYCODE && 
+			kc2 == RIGHT_LEG_BACK_KEYCODE) {
 				// success!	
 				Debug.Log("MOVING");
 				gameObject.transform.Translate(0, 50.0f, 0);
@@ -164,69 +177,6 @@ public class BARKControlsScript : MonoBehaviour {
 			
 			//this.inputQueue.Clear();
 		}
-		
-		// use when logic is more complicated
-//		if(GetLeftBackLegInput()) {
-//			if(this.inputQueue.Count > 0) {
-//				if(this.state.Equals(MoveState.RightSideSuccess)) {
-//					return; // sequence OK so far
-//				}
-//				if(this.inputQueue.Peek().Equals(RIGHT_LEG_BACK_KEYCODE) || this.inputQueue.Peek().Equals(RIGHT_LEG_FRONT_KEYCODE)) {
-//					this.state = MoveState.Fail;
-//					this.inputQueue.Clear();
-//					return;
-//				}
-//			}
-//			
-//			this.inputQueue.Enqueue(LEFT_LEG_BACK_KEYCODE);
-//		}
-//		if(GetLeftFrontLegInput()) {
-//			if(this.inputQueue.Count > 0) {
-//				if(this.inputQueue.Peek().Equals(LEFT_LEG_BACK_KEYCODE)) {
-//					if(this.state.Equals(MoveState.RightSideSuccess)) {
-//						this.state = MoveState.BothSideSuccess;
-//						this.inputQueue.Clear(); // sequence succeeded; reset input queue
-//						return;
-//					}
-//					else {
-//						this.state = MoveState.LeftSideSuccess;
-//						this.inputQueue.Enqueue(LEFT_LEG_FRONT_KEYCODE);
-//						return; // sequence OK so far
-//					}								
-//				}
-//				else if(this.inputQueue.Peek().Equals(RIGHT_LEG_BACK_KEYCODE) || this.inputQueue.Peek().Equals(RIGHT_LEG_FRONT_KEYCODE)) {
-//					this.state = MoveState.Fail;
-//					this.inputQueue.Clear();
-//					return;
-//				}
-//			}
-//			
-//			this.inputQueue.Enqueue(LEFT_LEG_FRONT_KEYCODE);
-//		}
-			
-		
-		// review this logic	
-//		if(GetRightBackLegInput()) {			
-//			if(!this.inputQueue.Peek().Equals(RIGHT_LEG_BACK_KEYCODE)) {
-//				this.state = MoveState.LeftSideSuccess;	
-//			}
-//			this.inputQueue.Enqueue(RIGHT_LEG_BACK_KEYCODE);
-//		}
-//		if(GetRightFrontLegInput()) {			
-//			if(!this.inputQueue.Peek().Equals(RIGHT_LEG_FRONT_KEYCODE)) {
-//				this.state = MoveState.LeftSideSuccess;
-//			}
-//			this.inputQueue.Enqueue(RIGHT_LEG_FRONT_KEYCODE);
-//		}
-//		
-//		if(this.state.Equals(MoveState.BothSideSuccess)) {
-//			// clear move queue and start over
-//			this.inputQueue.Clear();
-//		}
-		
-//		foreach(KeyCode key in this.inputQueue) {
-//			Debug.Log("KEY: " + key);
-//		}
 	}
 	
 	void UpdateMovement() {
