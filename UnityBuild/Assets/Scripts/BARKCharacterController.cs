@@ -21,14 +21,14 @@ public class BARKCharacterController : MonoBehaviour
 	// Ref: http://wiki.unity3d.com/index.php/KeyCombo
 	private string[] buttons;
 	private int currentIndex = 0; //moves along the array as buttons are pressed
-	private float allowedTimeBetweenButtons = 0.3f; //tweak as needed
-	private float timeLastButtonPressed;
-	
+	private float allowedTimeBetweenButtons = 1.0f; //tweak as needed
+	private float timeLastButtonPressed;	
 	
 	void Awake() {
 		rigidbody.freezeRotation = true;
 		rigidbody.useGravity = false;
-		buttons = new string[]{"LEFT_BACK_LEG", "LEFT_FRONT_LEG", "RIGHT_BACK_LEG", "RIGHT_FRONT_LEG"};
+		//buttons = new string[]{"LEFT_BACK_LEG", "LEFT_FRONT_LEG", "RIGHT_BACK_LEG", "RIGHT_FRONT_LEG"};
+		buttons = new string[]{"LEFT_BACK_LEG"};
 	}
 		
 	void FixedUpdate() {
@@ -44,7 +44,7 @@ public class BARKCharacterController : MonoBehaviour
 			}
 
 			targetVelocity = transform.TransformDirection(targetVelocity);
-			Debug.Log(""+targetVelocity);
+			//Debug.Log(""+targetVelocity);
 			//targetVelocity *= moveSpeed;
 			
 			// Apply a force that attempts to reach our target velocity.
@@ -62,6 +62,17 @@ public class BARKCharacterController : MonoBehaviour
 		// We cannot be sure if the object is grounded, so, let's assume no.
 		// Let the collision against the ground verify that we have in fact landed.
 		grounded = false;
+	}
+	
+	void OnCollisionEnter(Collision other) {
+		if(other.gameObject.tag != "Level") {
+			Debug.Log("Dog collided");
+
+			IncreaseSoundLevelScript soundLevelScript = gameObject.GetComponent<IncreaseSoundLevelScript>();
+			//soundLevelScript.SendMessage("")
+			Debug.Log(soundLevelScript);
+			soundLevelScript.SendMessage("UpdateDecibelLevel", other.gameObject.GetComponent<ChairBehavior>().GetDecibelLevel());			
+		}
 	}
 	
 	void OnCollisionStay() {
