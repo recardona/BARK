@@ -6,13 +6,6 @@ public class EndLevelTriggerScript : MonoBehaviour {
 	
 	void OnTriggerEnter(Collider other) {
 		isLevelComplete = true;
-		//Debug.Log("LEVEL COMPLETED");
-//		GUIText endLevelText = new GUIText();
-//		endLevelText.text = "Level Completed!!";
-//		endLevelText.alignment = TextAlignment.Center;
-//		endLevelText.enabled = true;
-		
-		//Debug.Log(endLevelText);
     }
 	
 	void OnGUI () {
