@@ -4,7 +4,7 @@ using System.Collections;
 public class IncreaseSoundLevelScript : MonoBehaviour {
 	
 	public int decibelLevelTotal = 0;
-	public int decibelLevelMax = 1;
+	public int decibelLevelLoseCondition = 1;
 	private bool decibelLimitReached = false;
 	
 	// Use this for initialization
@@ -19,7 +19,7 @@ public class IncreaseSoundLevelScript : MonoBehaviour {
 	
 	void UpdateDecibelLevel(int decibels) {
 		this.decibelLevelTotal += decibels;
-		if(this.decibelLevelTotal >= this.decibelLevelMax) {
+		if(this.decibelLevelTotal >= this.decibelLevelLoseCondition) {
 			this.decibelLimitReached = true;
 		}
 	}
