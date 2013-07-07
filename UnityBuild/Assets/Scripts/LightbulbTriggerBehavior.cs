@@ -19,7 +19,7 @@ public class LightbulbTriggerBehavior : ObstacleBehavior {
 		
 		if(other.gameObject.tag == "Level") {
 			lightbulbLight.SendMessage("BreakLightbulb");
-			IncreaseSoundLevelScript soundLevelScript = GameObject.Find("Dog").GetComponent<IncreaseSoundLevelScript>();
+			IncreaseSoundLevelScript soundLevelScript = GameObject.Find("Real Dog").GetComponent<IncreaseSoundLevelScript>();
 			soundLevelScript.SendMessage("UpdateDecibelLevel", this.decibelLevel);
 		}
 	}
