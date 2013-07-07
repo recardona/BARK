@@ -5,6 +5,9 @@ using System.Collections;
 
 public class ChairBehavior : MonoBehaviour 
 {
+	public AudioClip dragLoopSound;
+	public AudioClip moveStopSound;
+	
 	void Start() {
 	
 	}
@@ -16,8 +19,17 @@ public class ChairBehavior : MonoBehaviour
 	void OnCollisionEnter(Collision collisionInfo) {
 		// We were hit by the player
 		if(collisionInfo.gameObject.tag == "Player") {
+			audio.clip = dragLoopSound;
+			audio.loop = true;
 			audio.Play();
+			
 		}
+	}
+	
+	void OnCollisionExit(Collision collisionInfo) {
+		audio.loop = false;
+		audio.clip = moveStopSound;
+		audio.Play();
 	}
 	
 }
