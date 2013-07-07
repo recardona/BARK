@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+[RequireComponent (typeof (Rigidbody))]
+[RequireComponent (typeof (BoxCollider))]
 [RequireComponent (typeof (AudioSource))]
 
 public class ChairBehavior : MonoBehaviour 
